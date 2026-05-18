@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>掲示板表示</title>
+    <style>
+        /* ページ全体のスタイルリセット */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000; /* ベースを黒に設定 */
+        }
+
+        /* 掲示板を表示するインラインフレーム */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ローディング画面（黒画面）のスタイル */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            z-index: 9999; /* 最前面に配置 */
+            opacity: 1;
+            transition: opacity 0.8s ease; /* 0.8秒かけてフェードアウト */
+        }
+
+        /* シンプルな読み込み中アニメーション（不要なら削除してください） */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #fff;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* フェードアウト用のクラス */
+        .fade-out {
+            opacity: 0 !important;
+            pointer-events: none; /* 下の画面を操作できるようにする */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <div>やるじゃねぇか。ようこそ兄貴。<br>掲示板を読み込み中...</div>
+    </div>
+
+    <iframe src="https://script.google.com/macros/s/AKfycbxn2znDgBX9kBbKExq7fl9MEN3HgUnomHUzmvUAk-9EqjYDM2sEfYP-PnAEAs54ow4ARg/exec" allowfullscreen></iframe>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // ページが読み込まれてから1000ミリ秒（1秒）後に実行
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                // フェードアウト用のクラスを追加
+                loader.classList.add('fade-out');
+
+                // アニメーション終了後に要素自体を非表示（または削除）にする
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 800); // CSSの transition（0.8秒）と同じ時間に合わせる
+            }, 1000); // 1秒間維持
+        });
+    </script>
+
+</body>
+</html>
